@@ -2,6 +2,8 @@ import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -36,7 +38,7 @@ const ResultItem = ({item} : {item : resultItemType}) : React.ReactNode=>{
       <>
         <Text style={styles.titleStyle}>Ingredients:</Text>
         {item.ingredients.map((ingredient, index)=>{
-          return <Text style={styles.labelStyle}>{Number(index)+1}. {ingredient}</Text>})
+          return <Text key = {ingredient} style={styles.labelStyle}>{Number(index)+1}. {ingredient}</Text>})
         }
       </>
       :
@@ -46,7 +48,7 @@ const ResultItem = ({item} : {item : resultItemType}) : React.ReactNode=>{
       <>
         <Text style={styles.titleStyle}>Cooking Instructions:</Text>
         {item.cookingInstructions.map((ins, index)=>{
-          return <Text style={styles.labelStyle}>{Number(index)+1}. {ins}</Text>})
+          return <Text key = {ins} style={styles.labelStyle}>{Number(index)+1}. {ins}</Text>})
         }
       </>
       :
@@ -84,8 +86,9 @@ export const  ChatBotScreen = () :React.ReactNode=> {
 
   return (
     <SafeAreaView style={styles.backgroundStyle}>
+      <KeyboardAvoidingView style = {{flex:1}}      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <StatusBar
-        barStyle={ 'dark-content' }
+        barStyle={ 'light-content'	 }
         backgroundColor={styles.backgroundStyle.backgroundColor}
       />
       { loading &&
@@ -102,7 +105,7 @@ export const  ChatBotScreen = () :React.ReactNode=> {
         :
         <FlatList
           data={data}
-          style={{flex:0.9}}
+          style={styles.flatListViewStyle}
           renderItem={({index, item}) =>{
             return ( <>
                 <UserQueryItem item={item} />
@@ -125,6 +128,7 @@ export const  ChatBotScreen = () :React.ReactNode=> {
             onChangeText={onChangeText}
             placeholder="Enter the recipe name here.."
             value={text}
+            placeholderTextColor = {colors.grey}
           />
         <TouchableOpacity  onPress={()=>{
             setLoading(true);
@@ -137,7 +141,7 @@ export const  ChatBotScreen = () :React.ReactNode=> {
         }
         </TouchableOpacity>
       </View>
-
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -150,7 +154,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 20,
-        width:'80%'
+        width:'80%',
+        borderColor:colors.white,
+        color:'white'
+      },
+      flatListViewStyle:{
+        flex:0.9, 
+        paddingHorizontal:10
       },
       text: {
         color: 'black',
@@ -183,6 +193,7 @@ const styles = StyleSheet.create({
       },
       bottomViewStyle:{
         height:50, 
+        padding:6,
         flexDirection:'row' ,
         justifyContent:'space-between', 
         alignItems:'center'
