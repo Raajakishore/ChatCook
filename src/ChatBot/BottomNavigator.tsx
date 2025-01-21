@@ -17,7 +17,7 @@ export const  BottomNavigator = () : React.ReactNode => {
             },
             tabBarStyle: { 
               backgroundColor: colors.tabbar,
-              height: 72  ,
+              height: 64,
               paddingBottom: 10,
               borderColor: colors.primary
             },

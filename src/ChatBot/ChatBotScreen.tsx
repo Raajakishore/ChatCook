@@ -10,12 +10,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from './theme/colors';
-import { getDateFromLocalstorage, getRecipes, useVoiceToText } from './CustomHooks';
+import { getDateFromLocalstorage, getRecipes, useVoiceToText } from './HooksAndHelperFunctions';
 import { resultItemType } from './types';
 
 
@@ -86,7 +85,7 @@ export const  ChatBotScreen = () :React.ReactNode=> {
 
   return (
     <SafeAreaView style={styles.backgroundStyle}>
-      <KeyboardAvoidingView style = {{flex:1}}      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <KeyboardAvoidingView style = {{flex:1}}  behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <StatusBar
         barStyle={ 'light-content'	 }
         backgroundColor={styles.backgroundStyle.backgroundColor}
@@ -193,7 +192,7 @@ const styles = StyleSheet.create({
       },
       bottomViewStyle:{
         height:50, 
-        padding:6,
+        paddingTop:12,
         flexDirection:'row' ,
         justifyContent:'space-between', 
         alignItems:'center'
